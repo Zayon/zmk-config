@@ -8,8 +8,8 @@ manifest:
       url-base: https://github.com/mike1808
   projects:
     - name: zmk
-      remote: hsv-zmkfirmware
-      revision: main
+      remote: zmkfirmware
       import: app/west.yml
   self:
     path: config
+
