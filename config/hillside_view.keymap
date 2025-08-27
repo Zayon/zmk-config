@@ -21,6 +21,23 @@
 #define QUICK_TAP_MS 200
 #define TAPPING_TERM_MS 200
 
+&mt {
+    tapping-term-ms = <200>;
+    flavor = "tap-preferred";
+};
+
+&mmv {
+    acceleration-exponent = <1>;      // 1
+    time-to-max-speed-ms = <500>;     // 300
+    delay-ms = <0>;                   // 0
+};
+
+&msc {
+    acceleration-exponent = <1>;      // 0
+    time-to-max-speed-ms = <40>;      // 300
+    delay-ms = <0>;                   // 0
+};
+
 / {
     keymap {
         compatible = "zmk,keymap";
@@ -39,8 +56,8 @@
         nav_layer {
             display-name = "Nav";
             bindings = <
-&kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &kp TAB           &kp PG_DN   &kp LEFT      &kp DOWN      &kp RIGHT      &kp INS
 &none          &none         &kp ESC          &kp CAPS       &kp LS(TAB)       &kp PG_UP   &kp HOME      &kp UP        &kp END        &kp ESC
+&kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &kp TAB           &kp PG_DN   &kp LEFT      &kp DOWN      &kp RIGHT      &kp INS
 &kp C_AC_UNDO  &kp C_AC_CUT  &kp C_AC_COPY    &kp C_AC_PASTE &kp LC(TAB)       &kp ENTER   &kp LA(LEFT)  &kp SPACE     &kp LA(RIGHT)  &none
                   &trans                               &trans
          &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
@@ -83,9 +100,9 @@
         mouse_layer {
             display-name = "Mouse";
             bindings = <
-&none          &none         &none            &none          &none           &none      &msc SCRL_UP     &mmv MOVE_UP     &msc SCRL_DOWN    &none
-&kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &none           &mkp MB4   &mmv MOVE_LEFT   &mmv MOVE_DOWN   &mmv MOVE_RIGHT   &mkp MB5
-&kp C_AC_UNDO  &kp C_AC_CUT  &kp C_AC_COPY    &kp C_AC_PASTE &none           &none      &msc SCRL_LEFT   &none            &msc SCRL_RIGHT    &none
+&none          &none         &none            &none          &none           &none      &msc SCRL_LEFT  &mmv MOVE_UP     &msc SCRL_RIGHT    &none
+&kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &none           &mkp MB4   &mmv MOVE_LEFT  &mmv MOVE_DOWN   &mmv MOVE_RIGHT   &mkp MB5
+&kp C_AC_UNDO  &kp C_AC_CUT  &kp C_AC_COPY    &kp C_AC_PASTE &none           &none      &msc SCRL_UP    &none            &msc SCRL_DOWN     &none
                   &trans                                  &mkp MCLK
          &trans   &trans   &trans   &trans    &mkp LCLK   &kp SPACE   &mkp RCLK   &trans
             >;
@@ -94,9 +111,9 @@
         media_layer {
             display-name = "Media";
             bindings = <
-&none  &none  &none    &none  &none           &none   &none        &kp C_BRI_DEC    &kp C_BRI_INC   &none
-&none  &none  &none    &none  &none           &none   &kp C_PREV   &kp C_VOL_DN     &kp C_VOL_UP   &kp C_NEXT
-&none  &none  &none    &none  &none           &none   &none        &kp K_MUTE       &none          &none
+&none  &none  &none    &none  &studio_unlock           &none   &none        &kp C_BRI_DEC    &kp C_BRI_INC   &none
+&none  &none  &none    &none  &none                    &none   &kp K_PREV   &kp C_VOL_DN     &kp C_VOL_UP   &kp K_NEXT
+&none  &none  &none    &none  &none                    &none   &none        &kp K_MUTE       &none          &none
                   &trans                                    &trans
          &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
             >;
