@@ -1,21 +1,25 @@
-#include <dt-bindings/zmk/mouse.h>
+#include <behaviors.dtsi>
 #include <behaviors/mouse_keys.dtsi>
 #include <behaviors/studio_unlock.dtsi>
-#include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
+
+#define _BASE 0
+#define _NAV 1
+#define _WIN 2
+#define _NUM 3
+#define _FUNC 4
+#define _MOUSE 5
+#define _MEDIA 6
+#define _ARR 7
 
 
-#define DEF 0
 #define QUICK_TAP_MS 200
 #define TAPPING_TERM_MS 200
-
-&sk {
-    release-after-ms = <600>;
-    quick-release;
-};
 
 / {
     keymap {
@@ -24,13 +28,89 @@
         default_layer {
             display-name = "Default";
             bindings = <
-&kp Q     &kp W    &kp E      &kp R    &kp T                        &kp Y     &kp U       &kp I        &kp O     &kp P
-&kp A     &kp S    &kp D      &kp F    &kp G                        &kp H     &kp J       &kp K        &kp L     &kp SEMI
-&kp Z     &kp X    &kp C      &kp V    &kp B                        &kp N     &kp M       &kp COMMA    &kp DOT   &kp FSLH
-                         &kp END                                              &kp C_PP
-&kp LGUI     &kp SPACE   &kp BSPC  &kp LEFT_ALT                           &kp RIGHT_ALT  &kp DEL  &kp RET &kp RGUI
+&kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U             &kp I              &kp O         &kp P
+&mt LGUI A     &mt LALT S    &mt LCTRL D      &mt LSHFT F    &kp G             &kp H     &mt RSHFT J       &mt RCTRL K        &mt LALT L    &mt RGUI SEMI
+&kp Z          &kp X         &kp C            &kp V          &kp B             &kp N     &kp M             &kp COMMA          &kp DOT       &kp FSLH
+                                     &mo _MEDIA                                            &mo _FUNC
+&kp C_PP         &lt _MOUSE K_APP   &lt _NAV SPACE  &lt _WIN TAB               &mt RALT BSPC    &kp LSHFT    &lt _NUM DEL    &tog _ARR
             >;
+        };
 
+        nav_layer {
+            display-name = "Nav";
+            bindings = <
+&kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &kp TAB           &kp PG_DN   &kp LEFT      &kp DOWN      &kp RIGHT      &kp INS
+&none          &none         &kp ESC          &kp CAPS       &kp LS(TAB)       &kp PG_UP   &kp HOME      &kp UP        &kp END        &kp ESC
+&kp C_AC_UNDO  &kp C_AC_CUT  &kp C_AC_COPY    &kp C_AC_PASTE &kp LC(TAB)       &kp ENTER   &kp LA(LEFT)  &kp SPACE     &kp LA(RIGHT)  &none
+                  &trans                               &trans
+         &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
+            >;
+        };
+
+        win_layer {
+            display-name = "Win";
+            bindings = <
+&none  &kp LG(N7)    &kp LG(N8)    &kp LG(N9)  &none           &kp LG(PG_UP)   &kp LG(HOME)      &kp LG(UP)        &kp LG(END)       &none
+&none  &kp LG(N4)    &kp LG(N5)    &kp LG(N6)  &none           &kp LG(PG_DN)   &kp LG(LEFT)      &kp LG(DOWN)      &kp LG(RIGHT)     &none
+&none  &kp LG(N1)    &kp LG(N2)    &kp LG(N3)  &none           &kp LG(ENTER)   &kp LG(LA(LEFT))  &kp LG(SPACE)     &kp LG(LA(RIGHT))   &none
+                  &trans                                    &trans
+         &trans   &trans   &trans   &trans         &trans &trans  &trans   &trans
+            >;
+        };
+
+        num_layer {
+            display-name = "Num";
+            bindings = <
+&kp KP_SLASH    &kp N7    &kp N8    &kp N9    &none            &none    &none        &none        &none      &none
+&kp KP_MINUS    &kp N4    &kp N5    &kp N6    &kp N0           &none    &kp RSHFT    &kp RCTRL    &kp LALT   &kp RGUI
+&kp KP_COMMA    &kp N1    &kp N2    &kp N3    &kp KP_DOT       &none    &none        &none        &none      &none
+                  &trans                               &trans
+         &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
+            >;
+        };
+
+        func_layer {
+            display-name = "Fun";
+            bindings = <
+&kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none      &none
+&kp F5    &kp F6    &kp F7    &kp F8    &none           &none    &kp RSHFT    &kp RCTRL    &kp LALT   &kp RGUI
+&kp F9    &kp F10   &kp F11   &kp F12   &none           &none    &none        &none        &none      &none
+                  &trans                               &trans
+         &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
+            >;
+        };
+
+        mouse_layer {
+            display-name = "Mouse";
+            bindings = <
+&none          &none         &none            &none          &none           &none      &msc SCRL_UP     &mmv MOVE_UP     &msc SCRL_DOWN    &none
+&kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &none           &mkp MB4   &mmv MOVE_LEFT   &mmv MOVE_DOWN   &mmv MOVE_RIGHT   &mkp MB5
+&kp C_AC_UNDO  &kp C_AC_CUT  &kp C_AC_COPY    &kp C_AC_PASTE &none           &none      &msc SCRL_LEFT   &none            &msc SCRL_RIGHT    &none
+                  &trans                                  &mkp MCLK
+         &trans   &trans   &trans   &trans    &mkp LCLK   &kp SPACE   &mkp RCLK   &trans
+            >;
+        };
+
+        media_layer {
+            display-name = "Media";
+            bindings = <
+&none  &none  &none    &none  &none           &none   &none        &kp C_BRI_DEC    &kp C_BRI_INC   &none
+&none  &none  &none    &none  &none           &none   &kp C_PREV   &kp C_VOL_DN     &kp C_VOL_UP   &kp C_NEXT
+&none  &none  &none    &none  &none           &none   &none        &kp K_MUTE       &none          &none
+                  &trans                                    &trans
+         &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
+            >;
+        };
+
+        arr_layer {
+            display-name = "Arr";
+            bindings = <
+&trans  &trans  &trans    &trans  &trans           &trans   &trans   &trans   &trans   &trans
+&trans  &trans  &trans    &trans  &trans           &trans   &trans   &trans   &trans   &trans
+&trans  &trans  &trans    &trans  &trans           &trans   &trans   &trans   &trans   &trans
+                  &trans                                    &kp UP
+         &trans   &trans   &trans   &trans         &kp LEFT &kp DOWN  &kp RIGHT   &trans
+            >;
         };
     };
 };
