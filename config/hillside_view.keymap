@@ -12,6 +12,8 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 
+#define MEH(key) LC(LA(LG(key)))
+
 #define _BASE 0
 #define _NAV 1
 #define _WIN 2
@@ -99,9 +101,9 @@
         win_layer {
             display-name = "Win";
             bindings = <
-&none  &kp LG(N7)    &kp LG(N8)    &kp LG(N9)  &none           &kp LG(PG_UP)   &kp LG(HOME)      &kp LG(UP)        &kp LG(END)         &none
-&none  &kp LG(N4)    &kp LG(N5)    &kp LG(N6)  &none           &kp LG(PG_DN)   &kp LG(LEFT)      &kp LG(DOWN)      &kp LG(RIGHT)       &none
-&none  &kp LG(N1)    &kp LG(N2)    &kp LG(N3)  &none           &none           &kp LG(LA(LEFT))  &kp LG(SPACE)     &kp LG(LA(RIGHT))   &none
+&none  &kp MEH(N7)    &kp MEH(N8)    &kp MEH(N9)  &none           &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)         &none
+&none  &kp MEH(N4)    &kp MEH(N5)    &kp MEH(N6)  &none           &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)       &none
+&none  &kp MEH(N1)    &kp MEH(N2)    &kp MEH(N3)  &none           &none            &kp MEH(F17)       &none              &kp MEH(F18)         &none
                   &trans                                    &trans
          &trans   &trans   &trans   &trans         &trans  &trans  &kp DEL   &trans
             >;
