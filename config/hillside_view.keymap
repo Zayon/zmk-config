@@ -21,8 +21,43 @@
 #define _FUNC 4
 #define _MOUSE 5
 #define _MEDIA 6
-#define _ARR 7
+#define _SEL 7
 
+// first row
+#define S_CARET &kp CARET
+#define S_LT    &kp RA(W)
+#define S_GT    &kp RA(E)
+#define S_DLLR  &kp DLLR
+#define S_PRCNT &kp PRCNT
+#define S_AT    &kp RPAR
+#define S_AMPS  &kp AMPS
+#define S_STAR  &kp STAR
+#define S_SQT   &kp SQT
+#define S_GRAVE &kp GRAVE
+
+// second row
+#define S_LBRC  &kp LBRC
+#define S_LPAR  &kp RA(S)
+#define S_RPAR  &kp RA(D)
+#define S_RBRC  &kp RBRC
+#define S_EQUAL &kp EQUAL
+#define S_BSLH  &kp BSLH
+#define S_PLUS  &kp PLUS
+#define S_MINUS &kp C
+#define S_FSLH  &kp MINUS
+#define S_DQT   &kp DQT
+
+// third row
+#define S_TILDE &kp TILDE
+#define S_LBKT  &kp LBKT
+#define S_RBKT  &kp RBKT
+#define S_UNDER &kp UNDER
+#define S_HASH  &kp LPAR
+#define S_PIPE  &kp PIPE
+#define S_EXCL  &kp RA(M)
+#define S_SEMI  &kp RA(COMMA)
+#define S_COLON &kp RA(DOT)
+#define S_QMARK &kp RA(FSLH)
 
 #define QUICK_TAP_MS 200
 #define TAPPING_TERM_MS 200
@@ -83,7 +118,7 @@
 &ht LGUI A     &ht LALT S    &ht LCTRL D      &htb LSHFT F   &kp G             &kp H     &htb RSHFT J      &ht RCTRL K        &ht LALT L    &ht RGUI SEMI
 &kp Z          &kp X         &kp C            &kp V          &kp B             &kp N     &kp M             &kp COMMA          &kp DOT       &kp FSLH
                                      &mo _MEDIA                                               &mo _FUNC
-&kp C_PP         &lq _MOUSE ESC   &lq _NAV SPACE  &lq _WIN TAB               &ht RALT RET    &htb LSHFT BSPC     &lq _FUNC DEL    &tog _ARR
+&kp C_PP         &lq _MOUSE ESC   &lq _NAV SPACE  &lq _WIN TAB               &lt _SEL RET    &htb LSHFT BSPC     &lq _FUNC DEL    &kp INT9
             >;
         };
 
@@ -92,7 +127,7 @@
             bindings = <
 &kp KP_MINUS      &kp N7         &ht LGUI N8     &kp N9          &kp KP_SLASH          &kp PG_UP   &kp HOME      &kp UP        &kp END        &kp INS
 &ht LGUI KP_PLUS  &ht LALT N4    &ht LCTRL N5    &ht LSHFT N6    &kp N0                &kp PG_DN   &kp LEFT      &kp DOWN      &kp RIGHT      &kp K_APP
-&kp KP_COMMA      &kp N1         &kp N2          &kp N3          &kp KP_DOT            &none       &kp K_BACK   &kp SPACE     &kp K_FORWARD  &kp CAPS
+&kp KP_COMMA      &kp N1         &kp N2          &kp N3          &kp KP_DOT            &none       &kp LC(LEFT)  &kp SPACE     &kp LC(RIGHT)  &kp CAPS
                   &trans                               &trans
          &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
             >;
@@ -101,11 +136,11 @@
         win_layer {
             display-name = "Win";
             bindings = <
-&none  &kp MEH(N7)    &kp MEH(N8)    &kp MEH(N9)  &none           &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)         &none
-&none  &kp MEH(N4)    &kp MEH(N5)    &kp MEH(N6)  &none           &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)       &none
-&none  &kp MEH(N1)    &kp MEH(N2)    &kp MEH(N3)  &none           &none            &kp MEH(F17)       &none              &kp MEH(F18)         &none
+&kp MEH(Q)         &kp MEH(N7)    &kp MEH(N8)    &kp MEH(N9)  &none      &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)         &none
+&kp MEH(TAB)  &kp MEH(N4)    &kp MEH(N5)    &kp MEH(N6)  &kp MEH(F)      &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)       &kp MEH(F16)
+&none         &kp MEH(N1)    &kp MEH(N2)    &kp MEH(N3)  &none           &none            &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)         &none
                   &trans                                    &trans
-         &trans   &trans   &trans   &trans         &trans  &trans  &kp DEL   &trans
+         &trans   &trans   &trans   &trans         &trans  &kp LSHFT  &kp DEL   &trans
             >;
         };
 
@@ -153,14 +188,14 @@
             >;
         };
 
-        arr_layer {
-            display-name = "Arr";
+        selenium_layer {
+            display-name = "Selenium";
             bindings = <
-&trans  &trans  &trans    &trans  &trans           &trans   &trans   &trans   &trans   &trans
-&trans  &trans  &trans    &trans  &trans           &trans   &trans   &trans   &trans   &trans
-&trans  &trans  &trans    &trans  &trans           &trans   &trans   &trans   &trans   &trans
-                  &trans                                    &kp UP
-         &trans   &trans   &trans   &trans         &kp LEFT &kp DOWN  &kp RIGHT   &trans
+S_CARET S_LT    S_GT    S_DLLR  S_PRCNT      S_AT    S_AMPS  S_STAR  S_SQT   S_GRAVE
+S_LBRC  S_LPAR  S_RPAR  S_RBRC  S_EQUAL      S_BSLH  S_PLUS  S_MINUS S_FSLH  S_DQT
+S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_QMARK
+                  &trans                                    &trans
+         &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
             >;
         };
     };
