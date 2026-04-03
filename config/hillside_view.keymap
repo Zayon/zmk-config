@@ -13,6 +13,7 @@
 #include <dt-bindings/zmk/pointing.h>
 
 #define MEH(key) LC(LA(LG(key)))
+#define MEHS(key) LS(LC(LA(LG(key))))
 
 #define _BASE 0
 #define _NAV 1
@@ -114,7 +115,7 @@
         default_layer {
             display-name = "Default";
             bindings = <
-&kp Q          &kp W         &ht LGUI E       &kp R          &kp T             &kp Y     &kp U             &ht RGUI I         &kp O         &kp P
+&kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U             &kp I              &kp O         &kp P
 &ht LGUI A     &ht LALT S    &ht LCTRL D      &htb LSHFT F   &kp G             &kp H     &htb RSHFT J      &ht RCTRL K        &ht LALT L    &ht RGUI SEMI
 &kp Z          &kp X         &kp C            &kp V          &kp B             &kp N     &kp M             &kp COMMA          &kp DOT       &kp FSLH
                                      &mo _MEDIA                                               &mo _FUNC
@@ -127,7 +128,7 @@
             bindings = <
 &kp KP_MINUS      &kp N7         &ht LGUI N8     &kp N9          &kp KP_SLASH          &kp PG_UP   &kp HOME      &kp UP        &kp END        &kp INS
 &ht LGUI KP_PLUS  &ht LALT N4    &ht LCTRL N5    &ht LSHFT N6    &kp N0                &kp PG_DN   &kp LEFT      &kp DOWN      &kp RIGHT      &kp K_APP
-&kp KP_COMMA      &kp N1         &kp N2          &kp N3          &kp KP_DOT            &none       &kp LC(LEFT)  &kp SPACE     &kp LC(RIGHT)  &kp CAPS
+&kp KP_COMMA      &kp N1         &kp N2          &kp N3          &kp KP_DOT            &none       &kp LC(LBKT)  &kp SPACE     &kp LC(RIGHT)  &kp CAPS
                   &trans                               &trans
          &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
             >;
@@ -136,9 +137,9 @@
         win_layer {
             display-name = "Win";
             bindings = <
-&kp MEH(Q)         &kp MEH(N7)    &kp MEH(N8)    &kp MEH(N9)  &none      &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)         &none
+&kp MEH(Q)    &kp MEH(N7)    &kp MEH(N8)    &kp MEH(N9)  &kp MEHS(F)     &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)         &none
 &kp MEH(TAB)  &kp MEH(N4)    &kp MEH(N5)    &kp MEH(N6)  &kp MEH(F)      &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)       &kp MEH(F16)
-&none         &kp MEH(N1)    &kp MEH(N2)    &kp MEH(N3)  &none           &none            &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)         &none
+&none         &kp MEH(N1)    &kp MEH(N2)    &kp MEH(N3)  &none           &none            &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)         &kp MEHS(F16)
                   &trans                                    &trans
          &trans   &trans   &trans   &trans         &trans  &kp LSHFT  &kp DEL   &trans
             >;
@@ -173,7 +174,7 @@
 &kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &none           &mkp MB4   &mmv MOVE_LEFT  &mmv MOVE_DOWN   &mmv MOVE_RIGHT   &mkp MB5
 &kp C_AC_UNDO  &kp C_AC_CUT  &kp C_AC_COPY    &kp C_AC_PASTE &none           &none      &msc SCRL_UP    &none            &msc SCRL_DOWN     &none
                   &trans                                  &mkp MCLK
-         &trans   &trans   &trans   &trans    &mkp LCLK   &kp SPACE   &mkp RCLK   &trans
+         &trans   &trans   &trans   &trans    &mkp LCLK   &kp LC(LS(SPACE))   &mkp RCLK   &trans
             >;
         };
 
