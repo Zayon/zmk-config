@@ -307,20 +307,20 @@
         b_nav_layer {                           // 4 = _B_NAV
             display-name = "Se Nav";
             bindings = <
-&kp ESC     &kp HOME     &kp UP    &kp END     &kp PG_UP                &to NUM_LOCK_LAYER   &kp N7         &kp N8           &kp N9          S_FSLH
-&kp F14     &kp LEFT     &kp DOWN  &kp RIGHT   &kp PG_DN                S_MINUS              &hrm LALT N4   &hrm LCTRL N5    &hrm LGUI N6    &hrm LSHFT N0
-&kp CAPS    X_PREV       X_COPY    X_NEXT     &kp INS                  S_COMMA              &kp N1         &kp N2           &kp N3          S_DOT
+&kp ESC                 &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP                &kp HOME     &kp UP    &kp END     &kp ESC
+&hrm LSHIFT C     &hrm LGUI N4   &hrm LCTRL N5   &hrm LALT N6     &kp N0             &kp PG_DN                &kp LEFT     &kp DOWN  &kp RIGHT   &kp F14
+S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT              &to NUM_LOCK_LAYER       X_PREV       &none     X_NEXT      &kp INS
                   &trans                               &trans
-         &trans   &trans   &kp DEL   &kp LS(TAB)       &trans   &kp SPACE   &trans   &trans
+         &trans   &trans   &kp SPACE   &kp LS(TAB)       &trans   &kp DEL   &trans   &trans
             >;
         };
 
         b_win_layer {                           // 5 = _B_WIN
             display-name = "Se Win";
             bindings = <
-&kp MEH(Q)    &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)        &kp MEH(PG_UP)    &kp MEHS(F)       &kp MEH(N7)        &kp MEH(N8)        &kp MEH(N9)       &none
-&kp MEH(TAB)  &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)      &kp MEH(PG_DN)    &kp MEH(F)        &kp MEH(N4)        &kp MEH(N5)        &kp MEH(N6)       &kp MEH(F16)
-&none         &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)        &none             &none             &kp MEH(N1)        &kp MEH(N2)        &kp MEH(N3)       &kp MEHS(F16)
+&kp MEH(Q)    &kp MEH(N7)        &kp MEH(N8)        &kp MEH(N9)       &kp MEHS(F)       &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)        &none
+&kp MEH(TAB)  &kp MEH(N4)        &kp MEH(N5)        &kp MEH(N6)       &kp MEH(F)        &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)      &kp MEH(F16)
+&none         &kp MEH(N1)        &kp MEH(N2)        &kp MEH(N3)       &none             &none            &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)        &kp MEHS(F16)
                   &trans                                    &trans
          &trans   &trans   &trans   &trans         &trans  &trans  &trans   &trans
             >;
@@ -351,11 +351,11 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
         b_num_lock_layer {                      // 8 = NUM_LOCK_LAYER
             display-name = "Se Numlock";
             bindings = <
-&kp ESC     &kp HOME     &kp UP    &kp END     &kp PG_UP                &to BASE_LAYER       &kp N7         &kp N8           &kp N9          S_FSLH
-&kp F14     &kp LEFT     &kp DOWN  &kp RIGHT   &kp PG_DN                S_MINUS              &hrm LALT N4   &hrm LCTRL N5    &hrm LGUI N6    &hrm LSHFT N0
-&kp CAPS    X_PREV       X_COPY    X_NEXT      &kp INS                  S_COMMA              &kp N1         &kp N2           &kp N3          S_DOT
-                  &trans                               &trans
-         &trans   &trans   &kp DEL   &kp LS(TAB)       &trans   &kp SPACE   &trans   &trans
+&kp ESC                 &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP                &kp HOME     &kp UP    &kp END     &kp ESC
+&hrm LSHIFT C     &hrm LGUI N4   &hrm LCTRL N5   &hrm LALT N6     &kp N0             &kp PG_DN                &kp LEFT     &kp DOWN  &kp RIGHT   &kp F14
+S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT              &to BASE_LAYER          X_PREV        &none     X_NEXT      &kp INS
+                  &trans                                 &trans
+         &trans   &trans   &kp SPACE   &kp LS(TAB)       &trans   &kp DEL   &trans   &trans
             >;
         };
 
