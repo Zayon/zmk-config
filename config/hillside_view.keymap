@@ -15,26 +15,29 @@
 #define MEH(key) LC(LA(LG(key)))
 #define MEHS(key) LS(LC(LA(LG(key))))
 
+// Config A
 #define _BASE 0
 #define _NAV 1
 #define _WIN 2
-#define _FUNC 3
-#define _MOUSE 4
-#define MOUSE_LAYER 4
-#define _MEDIA 5
-#define _SYM 6
 
 // Config B (selenium-inspired)
-#define _B_BASE 7
-#define BASE_LAYER 7
-#define _B_NAV 8
-#define NAV_LAYER 8
-#define _B_WIN 9
-#define WIN_LAYER 9
-#define _B_FN 10
-#define _B_SYM 11
-#define SYMBOLS_LAYER 11
-#define NUM_LOCK_LAYER 12
+#define _B_BASE 3
+#define BASE_LAYER 3
+#define _B_NAV 4
+#define NAV_LAYER 4
+#define _B_WIN 5
+#define WIN_LAYER 5
+#define _B_FN 6
+#define _B_SYM 7
+#define SYMBOLS_LAYER 7
+#define NUM_LOCK_LAYER 8
+
+// Shared layers (must be ABOVE both base layers to override them via &mo)
+#define _FUNC 9
+#define _MOUSE 10
+#define MOUSE_LAYER 10
+#define _MEDIA 11
+#define _SYM 12
 
 #define EZ_SL(layer)  bsl (layer) (layer)
 #define EZ_SK(mod)    bsk (mod) (mod)
@@ -46,8 +49,8 @@
 #define HRM_K &hrm RCTL K
 #define HRM_L &hrm RGUI L
 
-#define LTHUMB_HRM &sc NAV_LAYER BACKSPACE
-#define RTHUMB_HRM &lt NAV_LAYER SPACE
+#define LTHUMB_HRM &sc NAV_LAYER SPACE
+#define RTHUMB_HRM &lt NAV_LAYER BACKSPACE
 
 #define LTHUMB_TUCK   &EZ_SK(LSHIFT)
 #define LTHUMB_HOME   LTHUMB_HRM
@@ -249,7 +252,11 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        // ==========================================
+        // Config A (indices 0-2)
+        // ==========================================
+
+        default_layer {                         // 0 = _BASE
             display-name = "Default";
             bindings = <
 &kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U             &kp I              &kp O         &kp P
@@ -260,7 +267,7 @@
             >;
         };
 
-        nav_layer {
+        nav_layer {                             // 1 = _NAV
             display-name = "Nav";
             bindings = <
 &kp KP_MINUS      &kp N7         &ht LGUI N8     &kp N9          &kp KP_SLASH          &kp PG_UP   &kp HOME      &kp UP        &kp END        &kp INS
@@ -271,7 +278,7 @@
             >;
         };
 
-        win_layer {
+        win_layer {                             // 2 = _WIN
             display-name = "Win";
             bindings = <
 &kp MEH(Q)    &kp MEH(N7)    &kp MEH(N8)    &kp MEH(N9)  &kp MEHS(F)     &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)         &none
@@ -282,55 +289,11 @@
             >;
         };
 
-        func_layer {
-            display-name = "Fun";
-            bindings = <
-&kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none      &none
-&kp F5    &kp F6    &kp F7    &kp F8    &none           &none    &kp RSHFT    &kp RCTRL    &kp LALT   &kp RGUI
-&kp F9    &kp F10   &kp F11   &kp F12   &none           &none    &none        &none        &none      &none
-                  &trans                               &trans
-         &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
-            >;
-        };
-
-        mouse_layer {
-            display-name = "Mouse";
-            bindings = <
-&none          &none         &none            &none          &none           &none      &msc SCRL_LEFT  &mmv MOVE_UP     &msc SCRL_RIGHT    &none
-&kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &none           &mkp MB4   &mmv MOVE_LEFT  &mmv MOVE_DOWN   &mmv MOVE_RIGHT   &mkp MB5
-&none          &none         &none            &none          &none           &none      &msc SCRL_UP    &none            &msc SCRL_DOWN     &none
-                  &trans                                  &mkp MCLK
-         &trans   &trans   &trans   &trans    &mkp LCLK   &kp LC(LS(SPACE))   &mkp RCLK   &trans
-            >;
-        };
-
-        media_layer {
-            display-name = "Media";
-            bindings = <
-&to _BASE  &none  &none    &none  &studio_unlock           &none   &none        &kp C_BRI_DEC    &kp C_BRI_INC   &to _B_BASE
-&none      &none  &none    &none  &none                    &none   &kp K_PREV   &kp C_VOL_DN     &kp C_VOL_UP   &kp K_NEXT
-&none      &none  &none    &none  &none                    &none   &none        &kp K_MUTE       &none          &none
-                  &trans                                    &trans
-         &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
-            >;
-        };
-
-        selenium_layer {
-            display-name = "Selenium";
-            bindings = <
-S_CARET S_LT    S_GT    S_DLLR  S_PRCNT      S_AT    S_AMPS  S_STAR  S_SQT   S_GRAVE
-S_LBRC  S_LPAR  S_RPAR  S_RBRC  S_EQUAL      S_BSLH  S_PLUS  S_MINUS S_FSLH  S_DQT
-S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_QMARK
-                  &trans                                    &trans
-         &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
-            >;
-        };
-
         // ==========================================
-        // Config B : Selenium-inspired
+        // Config B : Selenium-inspired (indices 3-8)
         // ==========================================
 
-        b_base_layer {
+        b_base_layer {                          // 3 = _B_BASE
             display-name = "Se Base";
             bindings = <
 &kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U             &kp I              &kp O         &kp P
@@ -341,7 +304,7 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
             >;
         };
 
-        b_nav_layer {
+        b_nav_layer {                           // 4 = _B_NAV
             display-name = "Se Nav";
             bindings = <
 &kp ESC     &kp HOME     &kp UP    &kp END     &kp PG_UP                &to NUM_LOCK_LAYER   &kp N7         &kp N8           &kp N9          S_FSLH
@@ -352,7 +315,7 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
             >;
         };
 
-        b_win_layer {
+        b_win_layer {                           // 5 = _B_WIN
             display-name = "Se Win";
             bindings = <
 &kp MEH(Q)    &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)        &kp MEH(PG_UP)    &kp MEHS(F)       &kp MEH(N7)        &kp MEH(N8)        &kp MEH(N9)       &none
@@ -363,7 +326,7 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
             >;
         };
 
-        b_fn_layer {
+        b_fn_layer {                            // 6 = _B_FN
             display-name = "Se Fn";
             bindings = <
 &kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none      &none
@@ -374,7 +337,7 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
             >;
         };
 
-        b_sel_layer {
+        b_sel_layer {                           // 7 = _B_SYM
             display-name = "Se Sym";
             bindings = <
 S_CARET S_LT    S_GT    S_DLLR  S_PRCNT      S_AT    S_AMPS  S_STAR  S_SQT   S_GRAVE
@@ -385,7 +348,7 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
             >;
         };
 
-        b_num_lock_layer {
+        b_num_lock_layer {                      // 8 = NUM_LOCK_LAYER
             display-name = "Se Numlock";
             bindings = <
 &kp ESC     &kp HOME     &kp UP    &kp END     &kp PG_UP                &to BASE_LAYER       &kp N7         &kp N8           &kp N9          S_FSLH
@@ -393,6 +356,54 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
 &kp CAPS    X_PREV       X_COPY    X_NEXT      &kp INS                  S_COMMA              &kp N1         &kp N2           &kp N3          S_DOT
                   &trans                               &trans
          &trans   &trans   &kp DEL   &kp LS(TAB)       &trans   &kp SPACE   &trans   &trans
+            >;
+        };
+
+        // ==========================================
+        // Shared layers (indices 9-12, above both configs)
+        // ==========================================
+
+        func_layer {                            // 9 = _FUNC
+            display-name = "Fun";
+            bindings = <
+&kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none      &none
+&kp F5    &kp F6    &kp F7    &kp F8    &none           &none    &kp RSHFT    &kp RCTRL    &kp LALT   &kp RGUI
+&kp F9    &kp F10   &kp F11   &kp F12   &none           &none    &none        &none        &none      &none
+                  &trans                               &trans
+         &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
+            >;
+        };
+
+        mouse_layer {                           // 10 = _MOUSE
+            display-name = "Mouse";
+            bindings = <
+&none          &none         &none            &none          &none           &none      &msc SCRL_LEFT  &mmv MOVE_UP     &msc SCRL_RIGHT    &none
+&kp LGUI       &kp LALT      &kp LCTRL        &kp LSHFT      &none           &mkp MB4   &mmv MOVE_LEFT  &mmv MOVE_DOWN   &mmv MOVE_RIGHT   &mkp MB5
+&none          &none         &none            &none          &none           &none      &msc SCRL_UP    &none            &msc SCRL_DOWN     &none
+                  &trans                                  &mkp MCLK
+         &trans   &trans   &trans   &trans    &mkp LCLK   &kp LC(LS(SPACE))   &mkp RCLK   &trans
+            >;
+        };
+
+        media_layer {                           // 11 = _MEDIA
+            display-name = "Media";
+            bindings = <
+&to _BASE  &none  &none    &none  &studio_unlock           &none   &none        &kp C_BRI_DEC    &kp C_BRI_INC   &to _B_BASE
+&none      &none  &none    &none  &none                    &none   &kp K_PREV   &kp C_VOL_DN     &kp C_VOL_UP   &kp K_NEXT
+&none      &none  &none    &none  &none                    &none   &none        &kp K_MUTE       &none          &none
+                  &trans                                    &trans
+         &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
+            >;
+        };
+
+        selenium_layer {                        // 12 = _SYM
+            display-name = "Selenium";
+            bindings = <
+S_CARET S_LT    S_GT    S_DLLR  S_PRCNT      S_AT    S_AMPS  S_STAR  S_SQT   S_GRAVE
+S_LBRC  S_LPAR  S_RPAR  S_RBRC  S_EQUAL      S_BSLH  S_PLUS  S_MINUS S_FSLH  S_DQT
+S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_QMARK
+                  &trans                                    &trans
+         &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
             >;
         };
     };
