@@ -23,13 +23,13 @@
 // Config B (selenium-inspired)
 #define _B_BASE 3
 #define BASE_LAYER 3
-#define _B_NAV 4
-#define NAV_LAYER 4
-#define _B_WIN 5
-#define WIN_LAYER 5
-#define _B_FN 6
-#define _B_SYM 7
-#define SYMBOLS_LAYER 7
+#define _B_WIN 4
+#define WIN_LAYER 4
+#define _B_FN 5
+#define _B_SYM 6
+#define SYMBOLS_LAYER 6
+#define _B_NAV 7
+#define NAV_LAYER 7
 #define NUM_LOCK_LAYER 8
 
 // Shared layers (must be ABOVE both base layers to override them via &mo)
@@ -42,22 +42,24 @@
 #define EZ_SL(layer)  bsl (layer) (layer)
 #define EZ_SK(mod)    bsk (mod) (mod)
 
-#define HRM_S &hrm LGUI S
-#define HRM_D &hrm LCTL D
-#define HRM_F &hrm LALT F
-#define HRM_J &hrm LALT J
-#define HRM_K &hrm RCTL K
-#define HRM_L &hrm RGUI L
+#define HRM_A &hrm LGUI  A
+#define HRM_S &hrm LALT  S
+#define HRM_D &hrm LCTRL D
+#define HRM_F &hrm LSHFT F
+#define HRM_J &hrm LSHFT J
+#define HRM_K &hrm RCTRL K
+#define HRM_L &hrm RALT  L
+#define HRM_SEMI &hrm RGUI SEMI
 
 #define LTHUMB_HRM &sc NAV_LAYER SPACE
 #define RTHUMB_HRM &lt NAV_LAYER BACKSPACE
 
-#define LTHUMB_TUCK   &EZ_SK(LSHIFT)
+#define LTHUMB_TUCK   &sc MOUSE_LAYER TAB 
 #define LTHUMB_HOME   LTHUMB_HRM
-#define LTHUMB_REACH  &sc MOUSE_LAYER TAB
-#define RTHUMB_REACH  &sc WIN_LAYER ENTER
+#define LTHUMB_REACH  &EZ_SK(LSHIFT)
+#define RTHUMB_REACH  &sc SYMBOLS_LAYER ENTER
 #define RTHUMB_HOME   RTHUMB_HRM
-#define RTHUMB_TUCK   &sym_shift_altgr
+#define RTHUMB_TUCK   &sc WIN_LAYER DEL
 
 #define CMD RG
 #define X_UNDO  &kp CMD(Z)
@@ -262,8 +264,8 @@
 &kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U             &kp I              &kp O         &kp P
 &ht LGUI A     &ht LALT S    &ht LCTRL D      &htb LSHFT F   &kp G             &kp H     &htb RSHFT J      &ht RCTRL K        &ht LALT L    &ht RGUI SEMI
 &kp Z          &kp X         &kp C            &kp V          &kp B             &kp N     &kp M             &kp COMMA          &kp DOT       &kp FSLH
-                                     &mo _MEDIA                                               &mo _FUNC
-&kp C_PP         &lq _MOUSE ESC   &lq _NAV SPACE  &lq _WIN TAB               &lt _SYM RET    &htb LSHFT BSPC     &lq _FUNC DEL    &kp INT9
+                                    &mo _MEDIA                                               &mo _FUNC
+&kp C_PP         &lq _MOUSE ESC    &lq _NAV SPACE    &lq _WIN TAB               &lt _SYM RET    &htb LSHFT BSPC     &lq _FUNC DEL    &kp INT9
             >;
         };
 
@@ -296,26 +298,15 @@
         b_base_layer {                          // 3 = _B_BASE
             display-name = "Se Base";
             bindings = <
-&kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U             &kp I              &kp O         &kp P
-&kp A          HRM_S         HRM_D            HRM_F          &kp G             &kp H     HRM_J             HRM_K              HRM_L         &kp SEMI
-&kp Z          &kp X         &kp C            &kp V          &kp B             &kp N     &kp M             &kp COMMA          &kp DOT       &kp FSLH
+&kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U         &kp I              &kp O         &kp P
+HRM_A          HRM_S         HRM_D            HRM_F          &kp G             &kp H     HRM_J         HRM_K              HRM_L         HRM_SEMI
+&kp Z          &kp X         &kp C            &kp V          &kp B             &kp N     &kp M         &kp COMMA          &kp DOT       &kp FSLH
                                      &mo _MEDIA                                               &mo _FUNC
 &kp C_PP         LTHUMB_TUCK        LTHUMB_HOME  LTHUMB_REACH             RTHUMB_REACH  RTHUMB_HOME    RTHUMB_TUCK    &kp INT9
             >;
         };
 
-        b_nav_layer {                           // 4 = _B_NAV
-            display-name = "Se Nav";
-            bindings = <
-&kp ESC                 &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP                &kp HOME     &kp UP    &kp END     &kp ESC
-&hrm LSHIFT C     &hrm LGUI N4   &hrm LCTRL N5   &hrm LALT N6     &kp N0             &kp PG_DN                &kp LEFT     &kp DOWN  &kp RIGHT   &kp F14
-S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT              &to NUM_LOCK_LAYER       X_PREV       &none     X_NEXT      &kp INS
-                  &trans                               &trans
-         &trans   &trans   &kp SPACE   &kp LS(TAB)       &trans   &kp DEL   &trans   &trans
-            >;
-        };
-
-        b_win_layer {                           // 5 = _B_WIN
+        b_win_layer {                           // 4 = _B_WIN
             display-name = "Se Win";
             bindings = <
 &kp MEH(Q)    &kp MEH(N7)        &kp MEH(N8)        &kp MEH(N9)       &kp MEHS(F)       &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)        &none
@@ -326,34 +317,45 @@ S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT   
             >;
         };
 
-        b_fn_layer {                            // 6 = _B_FN
+        b_fn_layer {                            // 5 = _B_FN
             display-name = "Se Fn";
             bindings = <
-&kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none      &none
-&kp F5    &kp F6    &kp F7    &kp F8    &none           &none    &kp LALT     &kp RCTRL    &kp RGUI   &kp LSHFT
-&kp F9    &kp F10   &kp F11   &kp F12   &none           &none    &none        &none        &none      &none
+&kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none        &none
+&kp F5    &kp F6    &kp F7    &kp F8    &none           &none    &kp LSHFT    &kp RCTRL    &kp LALT     &kp RGUI
+&kp F9    &kp F10   &kp F11   &kp F12   &none           &none    &none        &none        &none        &none
                   &trans                               &trans
          &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
             >;
         };
 
-        b_sel_layer {                           // 7 = _B_SYM
+        b_sel_layer {                           // 6 = _B_SYM
             display-name = "Se Sym";
             bindings = <
 S_CARET S_LT    S_GT    S_DLLR  S_PRCNT      S_AT    S_AMPS  S_STAR  S_SQT   S_GRAVE
 S_LBRC  S_LPAR  S_RPAR  S_RBRC  S_EQUAL      S_BSLH  S_PLUS  S_MINUS S_FSLH  S_DQT
 S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_QMARK
-                  &trans                                    &trans
-         &trans   &EZ_SL(NAV_LAYER)   &kp SPACE   &kp RET         &trans   &trans   &trans   &trans
+                  &trans                                       &trans
+         &trans   &kp TAB    &trans   &trans          &trans   &trans   &trans   &trans
+            >;
+        };
+
+        b_nav_layer {                           // 7 = _B_NAV
+            display-name = "Se Nav";
+            bindings = <
+&kp ESC             &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP                &kp HOME     &kp UP       &kp END     &kp ESC
+&hrm LGUI C     &hrm LALT N4       &hrm LCTRL N5    &hrm LSHFT N6    &kp N0            &kp PG_DN                &kp LEFT     &kp DOWN     &kp RIGHT   &kp F14
+S_COMMA             &kp N1         &kp N2           &kp N3          S_DOT              &to NUM_LOCK_LAYER       X_PREV       &kp SPACE    X_NEXT      &kp INS
+                  &trans                                          &trans
+         &trans   &kp TAB   &kp SPACE   &kp LS(TAB)       &trans   &kp BSPC   &kp DEL   &trans
             >;
         };
 
         b_num_lock_layer {                      // 8 = NUM_LOCK_LAYER
             display-name = "Se Numlock";
             bindings = <
-&kp ESC                 &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP                &kp HOME     &kp UP    &kp END     &kp ESC
-&hrm LSHIFT C     &hrm LGUI N4   &hrm LCTRL N5   &hrm LALT N6     &kp N0             &kp PG_DN                &kp LEFT     &kp DOWN  &kp RIGHT   &kp F14
-S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT              &to BASE_LAYER          X_PREV        &none     X_NEXT      &kp INS
+&kp ESC                 &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP               &kp HOME     &kp UP    &kp END     &kp ESC
+&hrm LGUI C     &hrm LALT N4       &hrm LCTRL N5    &hrm LSHFT N6       &kp N0             &kp PG_DN               &kp LEFT     &kp DOWN  &kp RIGHT   &kp F14
+S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT              &to BASE_LAYER          X_PREV       &none     X_NEXT      &kp INS
                   &trans                                 &trans
          &trans   &trans   &kp SPACE   &kp LS(TAB)       &trans   &kp DEL   &trans   &trans
             >;
