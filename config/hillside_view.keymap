@@ -56,7 +56,7 @@
 
 #define LTHUMB_TUCK   &sc MOUSE_LAYER TAB 
 #define LTHUMB_HOME   LTHUMB_HRM
-#define LTHUMB_REACH  &EZ_SK(LSHIFT)
+#define LTHUMB_REACH  &td_shift
 #define RTHUMB_REACH  &sc SYMBOLS_LAYER ENTER
 #define RTHUMB_HOME   RTHUMB_HRM
 #define RTHUMB_TUCK   &sc WIN_LAYER DEL
@@ -130,6 +130,11 @@
 
 &sl { ignore-modifiers; }; // keep one-shot-mods when chained into a one-shot-layer
 &sk { quick-release; };    // must-have! (lots of false positives otherwise)
+
+// Ergo-L: letters map to non-alpha HID keycodes that caps_word ignores by default
+&caps_word {
+    continue-list = <UNDERSCORE MINUS BACKSPACE DELETE SEMI COMMA DOT FSLH>;
+};
 
 / {
     behaviors {
@@ -231,6 +236,13 @@
             flavor = "tap-preferred";
             bindings = <&mo>, <&osl>;
         };
+        td_shift: tap_dance_shift {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&EZ_SK(LSHIFT)>, <&caps_word>;
+        };
+
         bsk: better_sticky_key {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
