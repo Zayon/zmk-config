@@ -116,13 +116,15 @@
 &sl { ignore-modifiers; }; // keep one-shot-mods when chained into a one-shot-layer
 &sk { quick-release; };    // must-have! (lots of false positives otherwise)
 
-// Ergo-L: letters map to non-alpha HID keycodes that caps_word ignores by default
-&caps_word {
-    continue-list = <UNDERSCORE MINUS BACKSPACE DELETE SEMI COMMA DOT FSLH>;
-};
-
 / {
     behaviors {
+        caps_word_ergol: caps_word_ergol {
+            compatible = "zmk,behavior-caps-word-ergol";
+            #binding-cells = <0>;
+            // DOT = ',' in Ergo-L, C = '-' in Ergo-L: continue but don't shift
+            continue-list = <BACKSPACE DELETE DOT C>;
+        };
+
         hrm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -193,7 +195,7 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&EZ_SK(LSHIFT)>, <&caps_word>;
+            bindings = <&EZ_SK(LSHIFT)>, <&caps_word_ergol>;
         };
 
         bsk: better_sticky_key {

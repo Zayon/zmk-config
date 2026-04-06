@@ -6,10 +6,15 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: hsv-zmkfirmware
       url-base: https://github.com/mike1808
+    - name: zayon
+      url-base: https://github.com/Zayon
   projects:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
+    - name: zmk-module-caps-word-ergol
+      remote: zayon
+      revision: main
   self:
     path: config
 
