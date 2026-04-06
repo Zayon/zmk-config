@@ -15,29 +15,20 @@
 #define MEH(key) LC(LA(LG(key)))
 #define MEHS(key) LS(LC(LA(LG(key))))
 
-// Config A
 #define _BASE 0
-#define _NAV 1
-#define _WIN 2
-
-// Config B (selenium-inspired)
-#define _B_BASE 3
-#define BASE_LAYER 3
-#define _B_WIN 4
-#define WIN_LAYER 4
-#define _B_FN 5
-#define _B_SYM 6
-#define SYMBOLS_LAYER 6
-#define _B_NAV 7
-#define NAV_LAYER 7
-#define NUM_LOCK_LAYER 8
-
-// Shared layers (must be ABOVE both base layers to override them via &mo)
-#define _FUNC 9
-#define _MOUSE 10
-#define MOUSE_LAYER 10
-#define _MEDIA 11
-#define _SYM 12
+#define BASE_LAYER 0
+#define _WIN 1
+#define WIN_LAYER 1
+#define _FN 2
+#define _SYM 3
+#define SYMBOLS_LAYER 3
+#define _NAV 4
+#define NAV_LAYER 4
+#define NUM_LOCK_LAYER 5
+#define _FUNC 6
+#define _MOUSE 7
+#define MOUSE_LAYER 7
+#define _MEDIA 8
 
 #define EZ_SL(layer)  bsl (layer) (layer)
 #define EZ_SK(mod)    bsk (mod) (mod)
@@ -51,22 +42,16 @@
 #define HRM_L &hrm RALT  L
 #define HRM_SEMI &hrm RGUI SEMI
 
-#define LTHUMB_HRM &sc NAV_LAYER SPACE
-#define RTHUMB_HRM &lt NAV_LAYER BACKSPACE
+#define LTHUMB_HRM &lt NAV_LAYER SPACE
+#define RTHUMB_HRM &sc NAV_LAYER BACKSPACE
 
-#define LTHUMB_TUCK   &sc MOUSE_LAYER TAB 
+#define LTHUMB_TUCK   &lt MOUSE_LAYER TAB
 #define LTHUMB_HOME   LTHUMB_HRM
 #define LTHUMB_REACH  &td_shift
-#define RTHUMB_REACH  &sc SYMBOLS_LAYER ENTER
+#define RTHUMB_REACH  &sym_enter
 #define RTHUMB_HOME   RTHUMB_HRM
 #define RTHUMB_TUCK   &sc WIN_LAYER DEL
 
-#define CMD RG
-#define X_UNDO  &kp CMD(Z)
-#define X_CUT   &kp CMD(X)
-#define X_COPY  &kp CMD(W)
-#define X_PASTE &kp CMD(V)
-#define X_REDO  &kp CMD(P)
 #define X_PREV  &kp LC(LBKT)
 #define X_NEXT  &kp LC(RBKT)
 
@@ -147,15 +132,6 @@
             bindings = <&kp>, <&kp>;
         };
 
-        lq: layer_toggle_quick {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <TAPPING_TERM_MS>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            bindings = <&mo>, <&kp>;
-        };
-
         sc: space_cadet { // same as lt, but with hold-preferred
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -165,53 +141,30 @@
             bindings = <&mo>, <&kp>;
         };
 
-        ht: hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <175>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
-
-            label = "Hold Tap";
-        };
-
-        htb: hold_tap_balanced {
-            compatible = "zmk,behavior-hold-tap";
-            label = "Hold Tab Balanced";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <175>;
-            flavor = "balanced";
-        };
-
-        // Config B: hold-preferred layer-tap for thumb keys (BSPC, TAB, RET)
-        // Layer activates immediately; tap only on quick release (<200ms)
-        lh: layer_hold_preferred {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <QUICK_TAP_MS>;
-            bindings = <&mo>, <&kp>;
-        };
-
-        // Sym becomes Shift+AltGr when combined with exclusively Shift
-        sym_shift_altgr: sym_shift_altgr {
+        // Sym/Enter thumb: tap=Enter, hold=Sym, Shift+tap=Shift+Enter, Shift+hold=Shift+RAlt
+        // Outer morph: Ctrl/Gui/LAlt bypass to normal Sym (no AltGr morph)
+        sym_enter: sym_enter {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&sym_shift_altgr_inner>, <&EZ_SL(SYMBOLS_LAYER)>;
+            bindings = <&sym_enter_inner>, <&sc SYMBOLS_LAYER ENTER>;
             mods      = <(MOD_LCTL|MOD_RCTL|MOD_LGUI|MOD_RGUI|MOD_LALT)>;
             keep-mods = <(MOD_LCTL|MOD_RCTL|MOD_LGUI|MOD_RGUI|MOD_LALT)>;
         };
-        sym_shift_altgr_inner: sym_shift_altgr_inner {
+        // Inner morph: Shift -> RAlt hold-tap, otherwise normal Sym
+        sym_enter_inner: sym_enter_inner {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&EZ_SL(SYMBOLS_LAYER)>, <&EZ_SK(RALT)>;
+            bindings = <&sc SYMBOLS_LAYER ENTER>, <&kpht RALT ENTER>;
             mods      = <(MOD_LSFT|MOD_RSFT)>;
             keep-mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        kpht: kp_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <SHORT_TAPPING_TERM>;
+            quick-tap-ms = <QUICK_TAP>;
+            flavor = "hold-preferred";
+            bindings = <&kp>, <&kp>;
         };
 
     // like ZMK's sticky layer (sl) but with a more robust timing
@@ -255,60 +208,19 @@
     combos {
         compatible = "zmk,combos";
 
-        combo_b_fn {
+        combo_fn {
             timeout-ms = <50>;
             key-positions = <35 36>;
-            bindings = <&mo _B_FN>;
-            layers = <_B_BASE>;
+            bindings = <&mo _FN>;
+            layers = <_BASE>;
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        // ==========================================
-        // Config A (indices 0-2)
-        // ==========================================
-
-        default_layer {                         // 0 = _BASE
-            display-name = "Default";
-            bindings = <
-&kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U             &kp I              &kp O         &kp P
-&ht LGUI A     &ht LALT S    &ht LCTRL D      &htb LSHFT F   &kp G             &kp H     &htb RSHFT J      &ht RCTRL K        &ht LALT L    &ht RGUI SEMI
-&kp Z          &kp X         &kp C            &kp V          &kp B             &kp N     &kp M             &kp COMMA          &kp DOT       &kp FSLH
-                                    &mo _MEDIA                                               &mo _FUNC
-&kp C_PP         &lq _MOUSE ESC    &lq _NAV SPACE    &lq _WIN TAB               &lt _SYM RET    &htb LSHFT BSPC     &lq _FUNC DEL    &kp INT9
-            >;
-        };
-
-        nav_layer {                             // 1 = _NAV
-            display-name = "Nav";
-            bindings = <
-&kp KP_MINUS      &kp N7         &ht LGUI N8     &kp N9          &kp KP_SLASH          &kp PG_UP   &kp HOME      &kp UP        &kp END        &kp INS
-&ht LGUI KP_PLUS  &ht LALT N4    &ht LCTRL N5    &ht LSHFT N6    &kp N0                &kp PG_DN   &kp LEFT      &kp DOWN      &kp RIGHT      &kp F14
-&kp KP_COMMA      &kp N1         &kp N2          &kp N3          &kp KP_DOT            &none       X_PREV        &kp SPACE     X_NEXT         &kp CAPS
-                  &trans                               &trans
-         &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
-            >;
-        };
-
-        win_layer {                             // 2 = _WIN
-            display-name = "Win";
-            bindings = <
-&kp MEH(Q)    &kp MEH(N7)    &kp MEH(N8)    &kp MEH(N9)  &kp MEHS(F)     &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)         &none
-&kp MEH(TAB)  &kp MEH(N4)    &kp MEH(N5)    &kp MEH(N6)  &kp MEH(F)      &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)       &kp MEH(F16)
-&none         &kp MEH(N1)    &kp MEH(N2)    &kp MEH(N3)  &none           &none            &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)         &kp MEHS(F16)
-                  &trans                                    &trans
-         &trans   &trans   &trans   &trans         &trans  &kp LSHFT  &kp DEL   &trans
-            >;
-        };
-
-        // ==========================================
-        // Config B : Selenium-inspired (indices 3-8)
-        // ==========================================
-
-        b_base_layer {                          // 3 = _B_BASE
-            display-name = "Se Base";
+        base_layer {                            // 0 = _BASE
+            display-name = "Base";
             bindings = <
 &kp Q          &kp W         &kp E            &kp R          &kp T             &kp Y     &kp U         &kp I              &kp O         &kp P
 HRM_A          HRM_S         HRM_D            HRM_F          &kp G             &kp H     HRM_J         HRM_K              HRM_L         HRM_SEMI
@@ -318,8 +230,8 @@ HRM_A          HRM_S         HRM_D            HRM_F          &kp G             &
             >;
         };
 
-        b_win_layer {                           // 4 = _B_WIN
-            display-name = "Se Win";
+        win_layer {                             // 1 = _WIN
+            display-name = "Win";
             bindings = <
 &kp MEH(Q)    &kp MEH(N7)        &kp MEH(N8)        &kp MEH(N9)       &kp MEHS(F)       &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)        &none
 &kp MEH(TAB)  &kp MEH(N4)        &kp MEH(N5)        &kp MEH(N6)       &kp MEH(F)        &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)      &kp MEH(F16)
@@ -329,8 +241,8 @@ HRM_A          HRM_S         HRM_D            HRM_F          &kp G             &
             >;
         };
 
-        b_fn_layer {                            // 5 = _B_FN
-            display-name = "Se Fn";
+        fn_layer {                              // 2 = _FN (via combo)
+            display-name = "Fn";
             bindings = <
 &kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none        &none
 &kp F5    &kp F6    &kp F7    &kp F8    &none           &none    &kp LSHFT    &kp RCTRL    &kp LALT     &kp RGUI
@@ -340,8 +252,8 @@ HRM_A          HRM_S         HRM_D            HRM_F          &kp G             &
             >;
         };
 
-        b_sel_layer {                           // 6 = _B_SYM
-            display-name = "Se Sym";
+        sym_layer {                             // 3 = _SYM
+            display-name = "Sym";
             bindings = <
 S_CARET S_LT    S_GT    S_DLLR  S_PRCNT      S_AT    S_AMPS  S_STAR  S_SQT   S_GRAVE
 S_LBRC  S_LPAR  S_RPAR  S_RBRC  S_EQUAL      S_BSLH  S_PLUS  S_MINUS S_FSLH  S_DQT
@@ -351,8 +263,8 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
             >;
         };
 
-        b_nav_layer {                           // 7 = _B_NAV
-            display-name = "Se Nav";
+        nav_layer {                             // 4 = _NAV
+            display-name = "Nav";
             bindings = <
 &kp ESC             &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP                &kp HOME     &kp UP       &kp END     &kp ESC
 &hrm LGUI C     &hrm LALT N4       &hrm LCTRL N5    &hrm LSHFT N6    &kp N0            &kp PG_DN                &kp LEFT     &kp DOWN     &kp RIGHT   &kp F14
@@ -362,8 +274,8 @@ S_COMMA             &kp N1         &kp N2           &kp N3          S_DOT       
             >;
         };
 
-        b_num_lock_layer {                      // 8 = NUM_LOCK_LAYER
-            display-name = "Se Numlock";
+        num_lock_layer {                        // 5 = NUM_LOCK_LAYER
+            display-name = "Numlock";
             bindings = <
 &kp ESC                 &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP               &kp HOME     &kp UP    &kp END     &kp ESC
 &hrm LGUI C     &hrm LALT N4       &hrm LCTRL N5    &hrm LSHFT N6       &kp N0             &kp PG_DN               &kp LEFT     &kp DOWN  &kp RIGHT   &kp F14
@@ -373,11 +285,7 @@ S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT   
             >;
         };
 
-        // ==========================================
-        // Shared layers (indices 9-12, above both configs)
-        // ==========================================
-
-        func_layer {                            // 9 = _FUNC
+        func_layer {                            // 6 = _FUNC
             display-name = "Fun";
             bindings = <
 &kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none      &none
@@ -388,7 +296,7 @@ S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT   
             >;
         };
 
-        mouse_layer {                           // 10 = _MOUSE
+        mouse_layer {                           // 7 = _MOUSE
             display-name = "Mouse";
             bindings = <
 &none          &none         &none            &none          &none           &none      &msc SCRL_LEFT  &mmv MOVE_UP     &msc SCRL_RIGHT    &none
@@ -399,23 +307,12 @@ S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT   
             >;
         };
 
-        media_layer {                           // 11 = _MEDIA
+        media_layer {                           // 8 = _MEDIA
             display-name = "Media";
             bindings = <
-&to _BASE  &none  &none    &none  &studio_unlock           &none   &none        &kp C_BRI_DEC    &kp C_BRI_INC   &to _B_BASE
-&none      &none  &none    &none  &none                    &none   &kp K_PREV   &kp C_VOL_DN     &kp C_VOL_UP   &kp K_NEXT
-&none      &none  &none    &none  &none                    &none   &none        &kp K_MUTE       &none          &none
-                  &trans                                    &trans
-         &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
-            >;
-        };
-
-        selenium_layer {                        // 12 = _SYM
-            display-name = "Selenium";
-            bindings = <
-S_CARET S_LT    S_GT    S_DLLR  S_PRCNT      S_AT    S_AMPS  S_STAR  S_SQT   S_GRAVE
-S_LBRC  S_LPAR  S_RPAR  S_RBRC  S_EQUAL      S_BSLH  S_PLUS  S_MINUS S_FSLH  S_DQT
-S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_QMARK
+&none  &none  &none    &none  &studio_unlock           &none   &none        &kp C_BRI_DEC    &kp C_BRI_INC   &none
+&none  &none  &none    &none  &none                    &none   &kp K_PREV   &kp C_VOL_DN     &kp C_VOL_UP   &kp K_NEXT
+&none  &none  &none    &none  &none                    &none   &none        &kp K_MUTE       &none          &none
                   &trans                                    &trans
          &trans   &trans   &trans   &trans         &trans   &trans   &trans   &trans
             >;
