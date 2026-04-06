@@ -19,16 +19,12 @@
 #define BASE_LAYER 0
 #define _WIN 1
 #define WIN_LAYER 1
-#define _FN 2
-#define _SYM 3
-#define SYMBOLS_LAYER 3
-#define _NAV 4
-#define NAV_LAYER 4
-#define NUM_LOCK_LAYER 5
-#define _FUNC 6
-#define _MOUSE 7
-#define MOUSE_LAYER 7
-#define _MEDIA 8
+#define SYMBOLS_LAYER 2
+#define NAV_LAYER 3
+#define NUM_LOCK_LAYER 4
+#define _FUNC 5
+#define MOUSE_LAYER 6
+#define _MEDIA 7
 
 #define EZ_SL(layer)  bsl (layer) (layer)
 #define EZ_SK(mod)    bsk (mod) (mod)
@@ -213,7 +209,7 @@
         combo_fn {
             timeout-ms = <50>;
             key-positions = <35 36>;
-            bindings = <&mo _FN>;
+            bindings = <&mo _FUNC>;
             layers = <_BASE>;
         };
     };
@@ -243,18 +239,7 @@ HRM_A          HRM_S         HRM_D            HRM_F          &kp G             &
             >;
         };
 
-        fn_layer {                              // 2 = _FN (via combo)
-            display-name = "Fn";
-            bindings = <
-&kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none        &none
-&kp F5    &kp F6    &kp F7    &kp F8    &none           &none    &kp LSHFT    &kp RCTRL    &kp LALT     &kp RGUI
-&kp F9    &kp F10   &kp F11   &kp F12   &none           &none    &none        &none        &none        &none
-                  &trans                               &trans
-         &trans   &trans   &trans   &trans    &trans   &trans   &trans   &trans
-            >;
-        };
-
-        sym_layer {                             // 3 = _SYM
+        sym_layer {                             // 2 = SYMBOLS_LAYER
             display-name = "Sym";
             bindings = <
 S_CARET S_LT    S_GT    S_DLLR  S_PRCNT      S_AT    S_AMPS  S_STAR  S_SQT   S_GRAVE
@@ -265,7 +250,7 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
             >;
         };
 
-        nav_layer {                             // 4 = _NAV
+        nav_layer {                             // 3 = NAV_LAYER
             display-name = "Nav";
             bindings = <
 &kp ESC             &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP                &kp HOME     &kp UP       &kp END     &kp ESC
@@ -276,7 +261,7 @@ S_COMMA             &kp N1         &kp N2           &kp N3          S_DOT       
             >;
         };
 
-        num_lock_layer {                        // 5 = NUM_LOCK_LAYER
+        num_lock_layer {                        // 4 = NUM_LOCK_LAYER
             display-name = "Numlock";
             bindings = <
 &kp ESC                 &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP               &kp HOME     &kp UP    &kp END     &kp ESC
@@ -287,7 +272,7 @@ S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT   
             >;
         };
 
-        func_layer {                            // 6 = _FUNC
+        func_layer {                            // 5 = _FUNC
             display-name = "Fun";
             bindings = <
 &kp F1    &kp F2    &kp F3    &kp F4    &kp PSCRN       &none    &none        &none        &none      &none
@@ -298,7 +283,7 @@ S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT   
             >;
         };
 
-        mouse_layer {                           // 7 = _MOUSE
+        mouse_layer {                           // 6 = MOUSE_LAYER
             display-name = "Mouse";
             bindings = <
 &none          &none         &none            &none          &none           &none      &msc SCRL_LEFT  &mmv MOVE_UP     &msc SCRL_RIGHT    &none
@@ -309,7 +294,7 @@ S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT   
             >;
         };
 
-        media_layer {                           // 8 = _MEDIA
+        media_layer {                           // 7 = _MEDIA
             display-name = "Media";
             bindings = <
 &none  &none  &none    &none  &studio_unlock           &none   &none        &kp C_BRI_DEC    &kp C_BRI_INC   &none
