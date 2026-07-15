@@ -39,14 +39,14 @@
 #define HRM_SEMI &hrm RGUI SEMI
 
 #define LTHUMB_HRM &lt NAV_LAYER SPACE
-#define RTHUMB_HRM &sc NAV_LAYER BACKSPACE
+#define RTHUMB_HRM &bspc_del
 
 #define LTHUMB_TUCK   &lt MOUSE_LAYER TAB
 #define LTHUMB_HOME   LTHUMB_HRM
-#define LTHUMB_REACH  &td_shift
+#define LTHUMB_REACH  &sc WIN_LAYER F20
 #define RTHUMB_REACH  &sym_enter
 #define RTHUMB_HOME   RTHUMB_HRM
-#define RTHUMB_TUCK   &sc WIN_LAYER DEL
+#define RTHUMB_TUCK   &td_shift
 
 #define X_PREV  &kp LC(LBKT)
 #define X_NEXT  &kp LC(RBKT)
@@ -138,6 +138,17 @@
             quick-tap-ms = <QUICK_TAP>;
             flavor = "hold-preferred";
             bindings = <&mo>, <&kp>;
+        };
+
+        // Backspace thumb: hold = NAV in both cases; tap = Backspace, Shift+tap = Delete.
+        // A hold-tap must keep #binding-cells=2, so instead of nesting a morph inside it we
+        // put the morph on top and switch between two full space-cadet behaviors.
+        // Shift is consumed, so DEL is sent unshifted.
+        bspc_del: bspc_del {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&sc NAV_LAYER BACKSPACE>, <&sc NAV_LAYER DELETE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         // Sym/Enter thumb: tap=Enter, hold=Sym, Shift+tap=Shift+Enter, Shift+hold=Shift+RAlt
@@ -234,7 +245,7 @@ HRM_A          HRM_S         HRM_D            HRM_F          &kp G             &
             bindings = <
 &kp MEH(Q)    &kp MEH(N7)        &kp MEH(N8)        &kp MEH(N9)       &kp MEHS(F)       &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)        &none
 &kp MEH(TAB)  &kp MEH(N4)        &kp MEH(N5)        &kp MEH(N6)       &kp MEH(F)        &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)      &kp MEH(F16)
-&none         &kp MEH(N1)        &kp MEH(N2)        &kp MEH(N3)       &none             &none            &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)        &kp MEHS(F16)
+&kp MEHS(TAB) &kp MEH(N1)        &kp MEH(N2)        &kp MEH(N3)       &none             &none            &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)        &kp MEHS(F16)
                   &trans                                    &trans
          &trans   &trans   &trans   &trans         &trans  &trans  &trans   &trans
             >;
@@ -258,18 +269,18 @@ S_TILDE S_LBKT  S_RBKT  S_UNDER S_HASH       S_PIPE  S_EXCL  S_SEMI  S_COLON S_Q
 &hrm LGUI C     &hrm LALT N4       &hrm LCTRL N5    &hrm LSHFT N6    &kp N0            &kp PG_DN                &kp LEFT     &kp DOWN     &kp RIGHT   &kp F14
 S_COMMA             &kp N1         &kp N2           &kp N3          S_DOT              &to NUM_LOCK_LAYER       X_PREV       &kp SPACE    X_NEXT      &kp INS
                   &trans                                          &trans
-         &trans   &kp TAB   &kp SPACE   &kp LS(TAB)       &trans   &kp BSPC   &kp DEL   &trans
+         &trans   &kp TAB   &kp SPACE   &kp DEL       &trans   &kp BSPC   &trans   &trans
             >;
         };
 
         num_lock_layer {                        // 4 = NUM_LOCK_LAYER
             display-name = "Numlock";
             bindings = <
-&kp ESC                 &kp N7         &kp N8           &kp N9          S_FSLH             &kp PG_UP               &kp HOME     &kp UP    &kp END     &kp ESC
+&to BASE_LAYER  &kp N7             &kp N8           &kp N9              S_FSLH             &kp PG_UP               &kp HOME     &kp UP    &kp END     &kp ESC
 &hrm LGUI C     &hrm LALT N4       &hrm LCTRL N5    &hrm LSHFT N6       &kp N0             &kp PG_DN               &kp LEFT     &kp DOWN  &kp RIGHT   &kp F14
 S_COMMA                 &kp N1         &kp N2           &kp N3          S_DOT              &to BASE_LAYER          X_PREV       &none     X_NEXT      &kp INS
                   &trans                                 &trans
-         &trans   &trans   &kp SPACE   &kp LS(TAB)       &trans   &kp DEL   &trans   &trans
+         &trans   &kp TAB   &kp SPACE   &kp DEL       &trans   &kp BSPC   &trans   &trans
             >;
         };
 
