@@ -243,9 +243,9 @@ HRM_A          HRM_S         HRM_D            HRM_F          &kp G             &
         win_layer {                             // 1 = _WIN
             display-name = "Win";
             bindings = <
-&kp MEH(Q)    &kp MEH(N7)        &kp MEH(N8)        &kp MEH(N9)       &kp MEHS(F)       &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)        &none
-&kp MEH(TAB)  &kp MEH(N4)        &kp MEH(N5)        &kp MEH(N6)       &kp MEH(F)        &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)      &kp MEH(F16)
-&kp MEHS(TAB) &kp MEH(N1)        &kp MEH(N2)        &kp MEH(N3)       &none             &none            &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)        &kp MEHS(F16)
+&kp MEH(KP_N1) &kp MEH(N7)        &kp MEH(N8)        &kp MEH(N9)       &kp MEH(KP_N4)      &kp MEH(PG_UP)   &kp MEH(HOME)      &kp MEH(UP)        &kp MEH(END)        &kp MEH(KP_N7)
+&kp MEH(TAB)   &kp MEH(N4)        &kp MEH(N5)        &kp MEH(N6)       &kp MEH(KP_N5)      &kp MEH(PG_DN)   &kp MEH(LEFT)      &kp MEH(DOWN)      &kp MEH(RIGHT)      &kp MEH(KP_N8)
+&kp MEH(KP_N2) &kp MEH(N1)        &kp MEH(N2)        &kp MEH(N3)       &kp MEH(KP_N6)      &kp MEH(KP_N3)   &kp MEH(F17)       &kp MEH(F18)       &kp MEH(F19)        &kp MEH(KP_N9)
                   &trans                                    &trans
          &trans   &trans   &trans   &trans         &trans  &trans  &trans   &trans
             >;
